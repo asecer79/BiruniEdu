@@ -1,5 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
+//deneme
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
