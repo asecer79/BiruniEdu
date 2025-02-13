@@ -1,0 +1,37 @@
+﻿@model List<Week1_2.Models.Student>
+
+<html>
+<head></head>
+
+<body>
+
+
+
+</body>
+
+<h2>student info</h2>
+<table border="1">
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>StudentID</td>
+        <td>Desc</td>
+    </tr>
+   
+    @{
+
+        foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.Name</td>
+                <td>@student.StudentId</td>
+                <td>@student.Description</td>
+            </tr>
+
+        }
+    }
+       
+</table>
+
+</html>
