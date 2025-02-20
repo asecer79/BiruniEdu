@@ -8,7 +8,7 @@
             Id
         </td>
         <td>
-            <input type="text" name="id"/>
+            <input type="text" name="id" value="@Model.Id"/>
         </td>
     </tr>
     <tr>
@@ -16,7 +16,7 @@
             Name
         </td>
         <td>
-            <input type="text" name="name" />
+                <input type="text" name="name" value="@Model.Name" />
         </td>
     </tr>
     <tr>
@@ -25,7 +25,7 @@
 
         </td>
         <td>
-            <input type="text" name="studentId"/>
+                <input type="text" name="studentId" value="@Model.StudentId" />
         </td>
     </tr>
     <tr>
@@ -33,10 +33,11 @@
             Description
         </td>
         <td>
-            <input type="text" name="description"/>
+                <input type="text" name="description" value="@Model.Description" />
         </td>
         </>
 </table>
+<div class="text-danger" asp-validation-summary="All"></div>
 <input type="submit" value="Save"/>
 
 </form>

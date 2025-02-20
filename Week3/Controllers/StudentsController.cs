@@ -24,9 +24,18 @@ namespace Week3.Controllers
         [HttpPost]
         public IActionResult Create(Student student)
         {
-            SchoolDb.StudentsTable.Add(student);
 
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                SchoolDb.StudentsTable.Add(student);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(student);
+            }
+         
         }
 
         [HttpGet]
