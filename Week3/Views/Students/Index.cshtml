@@ -1,0 +1,39 @@
+﻿@model List<Student>
+
+
+<a href="/students/create" > Create New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Student Id</td>
+            <td>Description</td>
+            <td>CRUD</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.StudentId</td>
+                    <td>@student.Description</td>
+                    <td>
+                        <a href="/students/update/@student.Id">Update</a>
+                        <a href="/students/delete/@student.Id">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+
+
