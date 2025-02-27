@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    // Layout = "_MainLayout";
+}
+<style>
+    
+</style>
+<div class="text-center bg-danger">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@*HTML Helpers*@
+@Html.TextBox("username", "default value",
+        new
+        {
+            @id = "el1",
+            @class = "form-control"
+        })
+@* <input id="username" name="username" type="text" value="default value" class="form-control"> *@
+
+@* Tag helper *@
+
+
+@Html.TextArea("Adress")
+
+@Html.CheckBox("Ok?")
+
+@Html.DropDownList("colors", new List<SelectListItem>()
+    {
+        new SelectListItem("c1","Red"),
+        new SelectListItem("c2","Green"),
+        new SelectListItem("c3","Blue"),
+        new SelectListItem("c4","Black"),
+
+    })
+
+@*  <select id="colors" name="colors"><option value="Red">c1</option>
+        <option value="Green">c2</option>
+        <option value="Blue">c3</option>
+        <option value="Black">c4</option>
+    </select> *@
+
+
+@Html.ActionLink("page2", "Privacy", "Home")
+
+@*URL Helpers*@
+
+<div>
+    <a href="@Url.Action("p1","security",new{id=1,name="ahmet"})">Security</a>
+</div>
+<div>
+    <a href="@Url.RouteUrl("default2","1")">Security2</a>
+</div>
+
+@*    <a href="@Url.Content()">Security2</a> *@
+
+<a asp-action ="index"></a>
+
+<script>
+
+</script>
+
+@* @section onemli{
+    
+    
+} *@
