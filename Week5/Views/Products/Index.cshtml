@@ -1,0 +1,15 @@
+﻿@model List<Product>
+
+
+<h2>Products</h2>
+
+
+@{
+    foreach (var product in Model)
+    {
+        <br/>
+        @product.Name
+    }
+}
+
+
