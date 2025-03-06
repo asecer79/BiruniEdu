@@ -3,13 +3,57 @@
 
 <h2>Products</h2>
 
+<a class="btn btn-primary" href="/Products/Create">Create</a>
+
 
 @{
-    foreach (var product in Model)
-    {
-        <br/>
-        @product.Name
-    }
+    <table class="table">
+        <thead>
+        <th>Id</th>
+        <th>Name</th>
+        
+        <th>Desc</th>
+
+        <th>Price</th>
+
+        <th>Brand</th>
+        <th>Process</th>
+
+        </thead>
+        <tbody>
+        @{
+            foreach (var product in Model)
+            {
+                <tr>
+                    <td>
+                        @product.Id
+                    </td>
+                    <td>
+                        @product.Name
+                    </td>
+                    <td>
+                        @product.Description
+                    </td>
+                    <td>
+                        @product.Price
+                    </td>
+                    <td>
+                        @product.Brand
+                    </td>
+                    
+                    <td>
+                        <a class="btn btn-primary" href="/Products/Create">Create</a>
+
+                    </td>
+                </tr>
+        
+            }
+        }
+       
+
+        </tbody>
+    </table>
+  
 }
 
 
