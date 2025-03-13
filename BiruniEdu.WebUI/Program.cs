@@ -6,8 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<IFacultyDal,FacultyDal>();
-
+//builder.Services.AddTransient<IFacultyDal,FacultyDal>();
+//builder.Services.AddScoped<IFacultyDal, FacultyDal>();
+builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
 
 
 
