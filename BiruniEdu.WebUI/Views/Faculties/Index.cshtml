@@ -1,0 +1,32 @@
+﻿@model List<Faculty>
+
+<h3>Faculties</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">FacultyName</th>
+            <th scope="col">DeanName</th>
+            <th scope="col">EstablishedDate</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+    @{
+        foreach (var record in Model)
+        {
+            <tr>
+                <th>@record.Id</th>
+                <td>@record.FacultyName</td>
+                <td>@record.DeanName</td>
+                <td>@record.EstablishedDate</td>
+            </tr>
+        }
+    }
+  
+
+    </tbody>
+</table>
