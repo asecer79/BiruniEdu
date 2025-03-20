@@ -11,9 +11,9 @@ public class Faculty
     public string FacultyName { get; set; }
 
     [MaxLength(100)]
-    public string DeanName { get; set; }
+    public string? DeanName { get; set; }
 
     public DateTime? EstablishedDate { get; set; }
 
-    public virtual ICollection<Department> Departments { get; set; }
+    public virtual ICollection<Department>? Departments { get; set; }
 }

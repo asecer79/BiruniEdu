@@ -9,6 +9,8 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddTransient<IFacultyDal,FacultyDal>();
 //builder.Services.AddScoped<IFacultyDal, FacultyDal>();
 builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
+builder.Services.AddSingleton<IDepartmentDal, DepartmentDal>();
+
 
 
 

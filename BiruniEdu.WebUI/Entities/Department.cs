@@ -14,13 +14,13 @@ namespace BiruniEdu.WebUI.Entities
         public int FacultyId { get; set; }
 
         [MaxLength(100)]
-        public string HeadOfDepartment { get; set; }
+        public string? HeadOfDepartment { get; set; }
 
         [ForeignKey("FacultyId")]
-        public virtual Faculty Faculty { get; set; }
+        public virtual Faculty? Faculty { get; set; }
 
-        public virtual ICollection<Student> Students { get; set; }
-        public virtual ICollection<Instructor> Instructors { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Student>? Students { get; set; }
+        public virtual ICollection<Instructor>? Instructors { get; set; }
+        public virtual ICollection<Course>? Courses { get; set; }
     }
 }

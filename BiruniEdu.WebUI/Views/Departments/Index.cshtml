@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BiruniEdu.WebUI.Entities.Faculty>
+﻿@model IEnumerable<BiruniEdu.WebUI.Entities.Department>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FacultyName)
+                @Html.DisplayNameFor(model => model.DepartmentName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeanName)
+                @Html.DisplayNameFor(model => model.HeadOfDepartment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EstablishedDate)
+                @Html.DisplayNameFor(model => model.Faculty)
             </th>
             <th></th>
         </tr>
@@ -28,13 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FacultyName)
+                @Html.DisplayFor(modelItem => item.DepartmentName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DeanName)
+                @Html.DisplayFor(modelItem => item.HeadOfDepartment)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EstablishedDate)
+                @Html.DisplayFor(modelItem => item.Faculty.FacultyName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
