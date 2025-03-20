@@ -1,29 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using BiruniEdu.WebUI.DataAccess.Context;
-using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
+﻿using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
 using BiruniEdu.WebUI.Entities;
+using BiruniEdu.WebUI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BiruniEdu.WebUI.Controllers
 {
     public class FacultiesController : Controller
     {
         private IFacultyDal _facultyDal;
+        private ICacheManager _cacheManager;
 
-        public FacultiesController(IFacultyDal facultyDal)
+
+        public FacultiesController(IFacultyDal facultyDal, ICacheManager cacheManager)
         {
             _facultyDal = facultyDal;
+            _cacheManager = cacheManager;
         }
 
         // GET: Faculties
         public async Task<IActionResult> Index()
         {
-            return View( _facultyDal.GetList());
+
+            var cachedData = _cacheManager.Get<List<Faculty>>("facultyList");
+       
+            if (cachedData != null)
+            {
+             
+                return View(cachedData);
+
+            }
+
+            await Task.Delay(3000);
+            var liveData = _facultyDal.GetList();
+            _cacheManager.Set("facultyList", liveData);
+
+            return View(liveData);
         }
 
         // GET: Faculties/Details/5
@@ -34,7 +46,7 @@ namespace BiruniEdu.WebUI.Controllers
                 return NotFound();
             }
 
-            var faculty =  _facultyDal.GetList()
+            var faculty = _facultyDal.GetList()
                 .FirstOrDefault(m => m.Id == id);
             if (faculty == null)
             {
@@ -60,6 +72,7 @@ namespace BiruniEdu.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 _facultyDal.Create(faculty);
+                //_memoryCache.Remove("facultyList");
                 return RedirectToAction(nameof(Index));
             }
             return View(faculty);
@@ -98,6 +111,8 @@ namespace BiruniEdu.WebUI.Controllers
                 try
                 {
                     _facultyDal.Update(faculty);
+                    //_memoryCache.Remove("facultyList");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -138,15 +153,16 @@ namespace BiruniEdu.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-                _facultyDal.Delete(id);
-            
+            _facultyDal.Delete(id);
+            //_memoryCache.Remove("facultyList");
+
 
             return RedirectToAction(nameof(Index));
         }
 
         private bool FacultyExists(int id)
         {
-            return _facultyDal.Get(id)!=null;
+            return _facultyDal.Get(id) != null;
         }
     }
 }

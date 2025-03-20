@@ -1,0 +1,8 @@
+﻿namespace BiruniEdu.WebUI.Services
+{  
+    public interface ICacheManager
+    {
+         void Set<T>(string key, T data);
+         T Get<T>(string key);
+    }
+}

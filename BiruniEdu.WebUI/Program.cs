@@ -1,10 +1,19 @@
 using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
 using BiruniEdu.WebUI.DataAccess.Dal.Concrete;
+using BiruniEdu.WebUI.Services;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddMemoryCache();
+
+//builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
+builder.Services.AddScoped<ICacheManager, RedisCacheManager>();
+
+
 
 //builder.Services.AddTransient<IFacultyDal,FacultyDal>();
 //builder.Services.AddScoped<IFacultyDal, FacultyDal>();
