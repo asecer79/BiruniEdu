@@ -1,5 +1,6 @@
 using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
 using BiruniEdu.WebUI.DataAccess.Dal.Concrete;
+using BiruniEdu.WebUI.Middlewares;
 using BiruniEdu.WebUI.Services;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -21,29 +22,90 @@ builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
 builder.Services.AddSingleton<IDepartmentDal, DepartmentDal>();
 
 
-
-
-
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+
+
+//// Configure the HTTP request pipeline.
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+//    app.UseHsts();
+//}
+
+#region 01-Simple Middlewares
+
+//app.Use(async (context, next) =>
+//{
+//    //request modifiye eder
+
+//    Console.WriteLine($"Request Kontrol 1: {context.Request.Method} - {context.Request.Path}");
+
+//    await next.Invoke();
+
+//    Console.WriteLine($"Response Kontrol 1: {context.Response.ContentType} - {context.Response.StatusCode}");
+//    //response modifiye eder
+
+
+//});
+//app.Use(async (context, next) =>
+//{
+//    //request modifiye eder
+
+//    Console.WriteLine($"Request Kontrol 2: {context.Request.Method} - {context.Request.Path}");
+
+//    await next.Invoke();
+
+//    Console.WriteLine($"Response Kontrol 2: {context.Response.ContentType} - {context.Response.StatusCode}");
+//    //response modifiye eder
+
+
+//});
+//app.Use(async (context, next) =>
+//{
+//    //request modifiye eder
+
+//    Console.WriteLine($"Request Kontrol 3: {context.Request.Method} - {context.Request.Path}");
+
+//    await next.Invoke();
+
+//    Console.WriteLine($"Response Kontrol 3: {context.Response.ContentType} - {context.Response.StatusCode}");
+//    //response modifiye eder
+
+
+//});
+
+#endregion
+
+//app.UseMiddleware<RequestLoggerMiddleware>();
+
+app.UseRequestLogger();
+
+app.UseIpLogger();
+
+app.UseIpFilter();
+
+
+//********************
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+
+
 
 app.Run();
