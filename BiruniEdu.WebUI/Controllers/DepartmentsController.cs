@@ -24,7 +24,7 @@ namespace BiruniEdu.WebUI.Controllers
         }
 
         // GET: Departments
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var data = _departmentDal.GetList();

@@ -75,7 +75,15 @@ namespace BiruniEdu.WebUI.DataAccess.Dal.Concrete
         {
             using (UniEduDbContext dbContext = new UniEduDbContext())
             {
-                return dbContext.Users.FirstOrDefault(p => p.Id == userId)?.OperationClaims.ToList();
+                return dbContext.Users.FirstOrDefault(p => p.Id == userId)?.OperationClaims?.ToList();
+            }
+        }
+
+        public User GetUserByEmail(string email, string password)
+        {
+            using (UniEduDbContext dbContext = new UniEduDbContext())
+            {
+                return dbContext.Users.FirstOrDefault(p => p.Email == email && p.Password == password)!;
             }
         }
     }

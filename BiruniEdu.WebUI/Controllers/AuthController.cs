@@ -5,11 +5,10 @@ namespace BiruniEdu.WebUI.Controllers
 {
     public class AuthController : Controller
     {
-        private IUserDal _userDal;
-
-        public AuthController(IUserDal userDal)
+        AuthHelpers.AuthHelper authHelper;
+        public AuthController(AuthHelpers.AuthHelper authHelper)
         {
-            _userDal = userDal;
+            this.authHelper = authHelper;
         }
 
         [HttpGet]
@@ -19,15 +18,14 @@ namespace BiruniEdu.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
-            var userExists = _userDal.CheckUserToLogin(email, password);
 
-            ViewBag.message = null;
+           var isAuthenticated =await authHelper.SignIn(email, password);
 
-            if (userExists)
+            if (isAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+              return  RedirectToAction("Index", "Home");
             }
 
             ViewBag.message = "User cannot be found! Check username and password!";

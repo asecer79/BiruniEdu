@@ -1,7 +1,10 @@
+using BiruniEdu.WebUI.AuthHelper;
+using BiruniEdu.WebUI.AuthHelpers;
 using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
 using BiruniEdu.WebUI.DataAccess.Dal.Concrete;
 using BiruniEdu.WebUI.Middlewares;
 using BiruniEdu.WebUI.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -12,6 +15,8 @@ builder.Services.AddControllersWithViews(options =>
 {
    // options.Filters.Add(new AuthorizeFilter());
 } );
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddMemoryCache();
 
@@ -25,6 +30,22 @@ builder.Services.AddScoped<ICacheManager, RedisCacheManager>();
 builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
 builder.Services.AddSingleton<IDepartmentDal, DepartmentDal>();
 builder.Services.AddSingleton<IUserDal, UserDal>();
+
+builder.Services.AddSingleton<AuthHelper>();
+
+var cookieAuthOptions = builder.Configuration.GetSection("CookieAuthOptions").Get<CookieAuthOptions>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.AccessDeniedPath = cookieAuthOptions.AccessDeniedPath;
+    options.LoginPath = cookieAuthOptions.LoginPath;
+    options.LogoutPath = cookieAuthOptions.LogOutPath;
+    options.Cookie.Name = cookieAuthOptions.Name;
+    options.SlidingExpiration = cookieAuthOptions.SlidingExpiration;
+    options.ExpireTimeSpan = TimeSpan.FromSeconds(cookieAuthOptions.TimeOut);
+    
+});
+
 
 var app = builder.Build();
 
@@ -96,6 +117,8 @@ app.UseRequestLogger();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseCookiePolicy();
 
 app.UseRouting();
 

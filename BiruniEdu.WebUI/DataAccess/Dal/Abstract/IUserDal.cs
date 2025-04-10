@@ -17,5 +17,8 @@ namespace BiruniEdu.WebUI.DataAccess.Dal.Abstract
         bool CheckUserToLogin(string email, string password);
 
         List<OperationClaim> GetUserOperationClaims(int userId);
+
+        User GetUserByEmail(string email, string password);
+
     }
 }
