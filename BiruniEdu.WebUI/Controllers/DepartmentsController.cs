@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BiruniEdu.WebUI.DataAccess.Context;
 using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
 using BiruniEdu.WebUI.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BiruniEdu.WebUI.Controllers
 {
+    [Authorize]
     public class DepartmentsController : Controller
     {
         private IDepartmentDal _departmentDal;
@@ -22,6 +24,7 @@ namespace BiruniEdu.WebUI.Controllers
         }
 
         // GET: Departments
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var data = _departmentDal.GetList();
@@ -47,6 +50,7 @@ namespace BiruniEdu.WebUI.Controllers
         }
 
         // GET: Departments/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["FacultyId"] = new SelectList(_faultyDal.GetList(), 
@@ -59,6 +63,8 @@ namespace BiruniEdu.WebUI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
+
         public async Task<IActionResult> Create([Bind("Id,DepartmentName,FacultyId,HeadOfDepartment")] Department department)
         {
             if (ModelState.IsValid)

@@ -2,12 +2,16 @@ using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
 using BiruniEdu.WebUI.DataAccess.Dal.Concrete;
 using BiruniEdu.WebUI.Middlewares;
 using BiruniEdu.WebUI.Services;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+   // options.Filters.Add(new AuthorizeFilter());
+} );
 
 builder.Services.AddMemoryCache();
 
@@ -20,7 +24,7 @@ builder.Services.AddScoped<ICacheManager, RedisCacheManager>();
 //builder.Services.AddScoped<IFacultyDal, FacultyDal>();
 builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
 builder.Services.AddSingleton<IDepartmentDal, DepartmentDal>();
-
+builder.Services.AddSingleton<IUserDal, UserDal>();
 
 var app = builder.Build();
 
@@ -82,9 +86,9 @@ var app = builder.Build();
 
 app.UseRequestLogger();
 
-app.UseIpLogger();
+//app.UseIpLogger();
 
-app.UseIpFilter();
+//app.UseIpFilter();
 
 
 //********************
