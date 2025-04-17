@@ -1,9 +1,8 @@
-﻿using System.Security.Claims;
-using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
-using BiruniEdu.WebUI.Entities.Security;
+﻿using BiruniEdu.Business.Abstract;
+using BiruniEdu.Entities.Concrete.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.Security.Claims;
 
 namespace BiruniEdu.WebUI.AuthHelpers
 {
@@ -11,13 +10,13 @@ namespace BiruniEdu.WebUI.AuthHelpers
     {
         private IConfiguration _configuration;
         private IHttpContextAccessor _httpContextAccessor;
-        IUserDal _userDal;
+        IUserService _userService;
 
-        public AuthHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IUserDal userDal)
+        public AuthHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IUserService userService)
         {
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
-            _userDal = userDal;
+            _userService = userService;
         }
 
         private ICollection<Claim> GetUserClaims(User user)
@@ -30,7 +29,7 @@ namespace BiruniEdu.WebUI.AuthHelpers
 
 
 
-            var userClaims = _userDal.GetUserOperationClaims(user.Id);
+            var userClaims = _userService.GetUserOperationClaims(user.Id);
 
             if (userClaims!=null)
             {
@@ -47,13 +46,13 @@ namespace BiruniEdu.WebUI.AuthHelpers
 
         public async Task<bool> SignIn(string email, string password)
         {
-            var userExists = _userDal.CheckUserToLogin(email, password);
+            var userExists = _userService.CheckUserToLogin(email, password);
 
             if (!userExists)
             {
                 return false;
             }
-            var user = _userDal.GetUserByEmail(email, password);
+            var user = _userService.GetUserByEmail(email, password);
 
             var claims = GetUserClaims(user);
 

@@ -1,5 +1,4 @@
-﻿using BiruniEdu.WebUI.Entities;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace BiruniEdu.WebUI.Services

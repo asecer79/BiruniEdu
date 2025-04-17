@@ -1,5 +1,4 @@
-﻿using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BiruniEdu.WebUI.Controllers
 {
@@ -33,6 +32,15 @@ namespace BiruniEdu.WebUI.Controllers
             ViewBag.password = password;
 
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+
+           await authHelper.SignOut();
+
+           return RedirectToAction("Login");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BiruniEdu.WebUI.Entities.Department>
+﻿@model IEnumerable<BiruniEdu.Entities.Concrete.Department>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,9 +6,15 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@{
+    if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+}
+
 <table class="table">
     <thead>
         <tr>

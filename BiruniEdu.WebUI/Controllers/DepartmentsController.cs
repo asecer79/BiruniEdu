@@ -1,33 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BiruniEdu.Business.Abstract;
+using BiruniEdu.DataAccess.Dal.Abstract;
+using BiruniEdu.Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using BiruniEdu.WebUI.DataAccess.Context;
-using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
-using BiruniEdu.WebUI.Entities;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BiruniEdu.WebUI.Controllers
 {
     [Authorize]
     public class DepartmentsController : Controller
     {
-        private IDepartmentDal _departmentDal;
-        IFacultyDal _faultyDal;
-        public DepartmentsController(IDepartmentDal departmentDal, IFacultyDal faultyDal)
+        IFacultyService _faultyService;
+        IDepartmentService _departmentService;
+        public DepartmentsController(IDepartmentService departmentService, IFacultyService faultyService)
         {
-            _departmentDal = departmentDal;
-            _faultyDal = faultyDal;
+            _departmentService = departmentService;
+            _faultyService = faultyService;
         }
 
         // GET: Departments
         //[AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var data = _departmentDal.GetList();
+            var data = _departmentService.GetList();
             return View(data);
         }
 
@@ -39,7 +34,7 @@ namespace BiruniEdu.WebUI.Controllers
                 return NotFound();
             }
 
-            var department = _departmentDal.GetList()
+            var department = _departmentService.GetList()
                 .FirstOrDefault(m => m.Id == id);
             if (department == null)
             {
@@ -53,7 +48,7 @@ namespace BiruniEdu.WebUI.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["FacultyId"] = new SelectList(_faultyDal.GetList(), 
+            ViewData["FacultyId"] = new SelectList(_departmentService.GetList(), 
 "Id", "FacultyName");
             return View();
         }
@@ -69,10 +64,10 @@ namespace BiruniEdu.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _departmentDal.Create(department);
+                _departmentService.Create(department);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FacultyId"] = new SelectList(_faultyDal.GetList(), "Id", "FacultyName", department.FacultyId);
+            ViewData["FacultyId"] = new SelectList(_faultyService.GetList(), "Id", "FacultyName", department.FacultyId);
             return View(department);
         }
 
@@ -84,12 +79,12 @@ namespace BiruniEdu.WebUI.Controllers
                 return NotFound();
             }
 
-            var department =  _departmentDal.Get(id);
+            var department = _departmentService.Get(id);
             if (department == null)
             {
                 return NotFound();
             }
-            ViewData["FacultyId"] = new SelectList(_departmentDal.GetList(), "Id", "FacultyName", department.FacultyId);
+            ViewData["FacultyId"] = new SelectList(_faultyService.GetList(), "Id", "FacultyName", department.FacultyId);
             return View(department);
         }
 

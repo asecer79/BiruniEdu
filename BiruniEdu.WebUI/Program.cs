@@ -1,11 +1,12 @@
+using BiruniEdu.Business.Abstract;
+using BiruniEdu.Business.Concrete;
+using BiruniEdu.DataAccess.Dal.Abstract;
+using BiruniEdu.DataAccess.Dal.Concrete;
 using BiruniEdu.WebUI.AuthHelper;
 using BiruniEdu.WebUI.AuthHelpers;
-using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
-using BiruniEdu.WebUI.DataAccess.Dal.Concrete;
 using BiruniEdu.WebUI.Middlewares;
 using BiruniEdu.WebUI.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,8 +29,15 @@ builder.Services.AddScoped<ICacheManager, RedisCacheManager>();
 //builder.Services.AddTransient<IFacultyDal,FacultyDal>();
 //builder.Services.AddScoped<IFacultyDal, FacultyDal>();
 builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
+builder.Services.AddSingleton<IFacultyService, FacultyService>();
+
 builder.Services.AddSingleton<IDepartmentDal, DepartmentDal>();
+builder.Services.AddSingleton<IDepartmentService, DepartmentService>();
+
+
 builder.Services.AddSingleton<IUserDal, UserDal>();
+builder.Services.AddSingleton<IUserService, UserService>();
+
 
 builder.Services.AddSingleton<AuthHelper>();
 

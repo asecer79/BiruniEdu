@@ -1,5 +1,5 @@
-﻿using BiruniEdu.WebUI.DataAccess.Dal.Abstract;
-using BiruniEdu.WebUI.Entities;
+﻿using BiruniEdu.DataAccess.Dal.Abstract;
+using BiruniEdu.Entities.Concrete;
 using BiruniEdu.WebUI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
