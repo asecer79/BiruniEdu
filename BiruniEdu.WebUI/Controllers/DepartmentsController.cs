@@ -20,10 +20,10 @@ namespace BiruniEdu.WebUI.Controllers
 
         // GET: Departments
         //[AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public Task<IActionResult> Index()
         {
             var data = _departmentService.GetList().ToList();
-            return View(data);
+            return Task.FromResult<IActionResult>(View(data));
         }
 
         // GET: Departments/Details/5

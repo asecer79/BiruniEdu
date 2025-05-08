@@ -1,5 +1,8 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using BiruniEdu.Business.Abstract;
 using BiruniEdu.Business.Concrete;
+using BiruniEdu.Business.Dependencies;
 using BiruniEdu.DataAccess.Dal.Abstract;
 using BiruniEdu.DataAccess.Dal.Concrete;
 using BiruniEdu.WebUI.AuthHelper;
@@ -24,19 +27,14 @@ builder.Services.AddMemoryCache();
 //builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 builder.Services.AddScoped<ICacheManager, RedisCacheManager>();
 
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => 
+    
+    containerBuilder.RegisterModule(new DependencyInjector())
+    );
 
 
-//builder.Services.AddTransient<IFacultyDal,FacultyDal>();
-//builder.Services.AddScoped<IFacultyDal, FacultyDal>();
-builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
-builder.Services.AddSingleton<IFacultyService, FacultyService>();
-
-builder.Services.AddSingleton<IDepartmentDal, DepartmentDal>();
-builder.Services.AddSingleton<IDepartmentService, DepartmentService>();
-
-
-builder.Services.AddSingleton<IUserDal, UserDal>();
-builder.Services.AddSingleton<IUserService, UserService>();
 
 
 builder.Services.AddSingleton<AuthHelper>();
