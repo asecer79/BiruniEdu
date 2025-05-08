@@ -1,7 +1,9 @@
 ﻿using BiruniEdu.Business.Abstract;
 using BiruniEdu.DataAccess.Context;
 using BiruniEdu.DataAccess.Dal.Abstract;
+using BiruniEdu.Entities.Concrete;
 using BiruniEdu.Entities.Concrete.Security;
+using System.Linq.Expressions;
 
 namespace BiruniEdu.Business.Concrete
 {
@@ -14,16 +16,16 @@ namespace BiruniEdu.Business.Concrete
             _userDal = userDal;
         }
 
-        public User Get(int id)
+        public User Get(Expression<Func<User, bool>> filter)
         {
-            return _userDal.Get(id);
+            return _userDal.Get(filter);
         }
 
-        public IList<User> GetList()
+        public IList<User> GetList(Expression<Func<User, bool>>? filter = null)
         {
-            return _userDal.GetList();
-           
+            return _userDal.GetList(filter).ToList();
         }
+
 
         public User Create(User entity)
         {
@@ -35,9 +37,11 @@ namespace BiruniEdu.Business.Concrete
             return _userDal.Update(entity);
         }
 
-        public bool Delete(int id)
+        public User Delete(Expression<Func<User, bool>> filter)
         {
-            return _userDal.Delete(id);
+            var record = _userDal.Get(filter);
+
+            return _userDal.Delete(record);
         }
 
         public bool CheckUserToLogin(string email, string password)

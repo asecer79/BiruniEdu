@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BiruniEdu.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BiruniEdu.Entities.Concrete;
 
-public class Enrollment
+public class Enrollment : IEntity
 {
     [Key]
     public int Id { get; set; }

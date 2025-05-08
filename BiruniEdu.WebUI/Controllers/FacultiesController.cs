@@ -86,7 +86,7 @@ namespace BiruniEdu.WebUI.Controllers
                 return NotFound();
             }
 
-            var faculty = _facultyDal.Get(id);
+            var faculty = _facultyDal.Get(p=>p.Id == id);
             if (faculty == null)
             {
                 return NotFound();
@@ -153,7 +153,9 @@ namespace BiruniEdu.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            _facultyDal.Delete(id);
+            var record = _facultyDal.Get(p => p.Id == id);
+
+            _facultyDal.Delete(record);
             //_memoryCache.Remove("facultyList");
 
 
@@ -162,7 +164,7 @@ namespace BiruniEdu.WebUI.Controllers
 
         private bool FacultyExists(int id)
         {
-            return _facultyDal.Get(id) != null;
+            return _facultyDal.Get(p => p.Id == id) != null;
         }
     }
 }

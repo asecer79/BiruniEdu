@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BiruniEdu.Core.Entities;
 
 namespace BiruniEdu.Entities.Concrete;
 
-public class Faculty
+public class Faculty : IEntity
 {
     [Key]
     public int Id { get; set; }

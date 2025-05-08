@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BiruniEdu.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace BiruniEdu.Entities.Concrete;
 
-public class Event
+public class Event : IEntity
 {
     [Key]
     public int Id { get; set; }

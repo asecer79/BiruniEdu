@@ -1,16 +1,10 @@
-﻿using BiruniEdu.Entities.Concrete;
+﻿using BiruniEdu.Core.DataAccess.Abstract;
+using BiruniEdu.Entities.Concrete;
 
 namespace BiruniEdu.DataAccess.Dal.Abstract
 {
-    public interface IDepartmentDal
+    public interface IDepartmentDal: IEntityRepository<Department>
     {
-        Department Get(int id);
-        IList<Department> GetList();
-
-        Department Create(Department entity);
-
-        Department Update(Department entity);
-
-        bool Delete(int id);
+     
     }
 }

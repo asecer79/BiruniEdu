@@ -1,18 +1,13 @@
-﻿using BiruniEdu.Entities.Concrete.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace BiruniEdu.Business.Abstract.CommonInterfaces
 {
     public interface ICommonDbOperations<T>
     {
-        T Get(int id);
-        IList<T> GetList();
+        T Get(Expression<Func<T, bool>> filter);
+        IList<T> GetList(Expression<Func<T, bool>>? filter=null);
         T Create(T entity);
         T Update(T entity);
-        bool Delete(int id);
+        T Delete(Expression<Func<T, bool>> filter);
     }
 }

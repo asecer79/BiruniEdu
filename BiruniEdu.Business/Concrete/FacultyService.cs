@@ -1,6 +1,7 @@
 ﻿using BiruniEdu.Business.Abstract;
 using BiruniEdu.DataAccess.Dal.Abstract;
 using BiruniEdu.Entities.Concrete;
+using System.Linq.Expressions;
 
 namespace BiruniEdu.Business.Concrete
 {
@@ -14,18 +15,18 @@ namespace BiruniEdu.Business.Concrete
             _facultyDal = facultyDal;
         }
 
-        public Faculty Get(int id)
+        public Faculty Get(Expression<Func<Faculty, bool>> filter)
         {
             //
 
             //
 
-            return _facultyDal.Get(id);
+            return _facultyDal.Get(filter);
         }
 
-        public IList<Faculty> GetList()
+        public IList<Faculty> GetList(Expression<Func<Faculty, bool>>? filter=null)
         {
-            return _facultyDal.GetList();
+            return _facultyDal.GetList().ToList();
 
         }
 
@@ -40,9 +41,10 @@ namespace BiruniEdu.Business.Concrete
 
         }
 
-        public bool Delete(int id)
+        public Faculty Delete(Expression<Func<Faculty, bool>> filter)
         {
-            return _facultyDal.Delete(id);
+            var record = _facultyDal.Get(filter);
+            return _facultyDal.Delete(record);
 
         }
     }

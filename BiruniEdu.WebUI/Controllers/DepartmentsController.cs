@@ -22,7 +22,7 @@ namespace BiruniEdu.WebUI.Controllers
         //[AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var data = _departmentService.GetList();
+            var data = _departmentService.GetList().ToList();
             return View(data);
         }
 
@@ -79,7 +79,7 @@ namespace BiruniEdu.WebUI.Controllers
                 return NotFound();
             }
 
-            var department = _departmentService.Get(id);
+            var department = _departmentService.Get(p=>p.Id==id);
             if (department == null)
             {
                 return NotFound();

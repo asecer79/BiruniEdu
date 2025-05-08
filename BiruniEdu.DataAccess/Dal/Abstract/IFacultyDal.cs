@@ -1,16 +1,10 @@
-﻿using BiruniEdu.Entities.Concrete;
+﻿using BiruniEdu.Core.DataAccess.Abstract;
+using BiruniEdu.Entities.Concrete;
 
 namespace BiruniEdu.DataAccess.Dal.Abstract
 {
-    public interface IFacultyDal
+    public interface IFacultyDal:IEntityRepository<Faculty>
     {
-        Faculty Get(int id);
-        IList<Faculty> GetList();
-
-        Faculty Create(Faculty entity);
-
-        Faculty Update(Faculty entity);
-
-        bool Delete(int id);
+       
     }
 }

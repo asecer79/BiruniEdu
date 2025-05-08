@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BiruniEdu.Entities\BiruniEdu.Entities.csproj" />
+    <ProjectReference Include="..\Core\BiruniEdu.Core.csproj" />
   </ItemGroup>
 
 </Project>

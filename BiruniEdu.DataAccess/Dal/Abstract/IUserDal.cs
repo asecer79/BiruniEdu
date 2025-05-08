@@ -1,17 +1,11 @@
-﻿using BiruniEdu.Entities.Concrete.Security;
+﻿using BiruniEdu.Core.DataAccess.Abstract;
+using BiruniEdu.Entities.Concrete.Security;
 
 namespace BiruniEdu.DataAccess.Dal.Abstract
 {
-    public interface IUserDal
+    public interface IUserDal:IEntityRepository<User>
     {
-        User Get(int id);
-        IList<User> GetList();
-
-        User Create(User entity);
-
-        User Update(User entity);
-
-        bool Delete(int id);
+      
 
         bool CheckUserToLogin(string email, string password);
 

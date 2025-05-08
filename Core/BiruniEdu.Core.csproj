@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
+    <Folder Include="DataAccess\Concrete\Hibernate\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\BiruniEdu.Core.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
   </ItemGroup>
 
 </Project>
